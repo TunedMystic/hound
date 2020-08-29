@@ -1,0 +1,13 @@
+# Binaries for programs and plugins
+*.so
+
+# Test binary, built with `go test -c`
+*.test
+
+# Dependency directories (remove the comment below to include it)
+.DS_Store
+.vscode
+*.sqlite
+misc
+tmp
+hound

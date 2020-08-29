@@ -1,0 +1,18 @@
+{{define "index"}}
+{{template "header" .}}
+
+<h3>The index page.</h3>
+
+<br />
+
+{{range .Articles}}
+    <div class="article">
+        <a href="{{.URL}}" target="_blank">
+            <p>{{.Title}}</p>
+            <p>{{.PublishedAt}}</p>
+        </a>
+    </div>
+{{end}}
+
+{{ template "footer" .}}
+{{end}}
