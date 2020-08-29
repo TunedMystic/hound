@@ -36,14 +36,16 @@ func TestMain(m *testing.M) {
 	db := NewDB()
 	CreateTables(db)
 	if err := db.Close(); err != nil {
-		log.Fatal("Error when closing the database")
+		log.Fatalf("Error when closing the database: %v\n", err)
 	}
 
 	// Run the test.
 	code := m.Run()
 
 	// Remove the test db.
-	os.Remove(config.DatabaseName)
+	if err := os.Remove(config.DatabaseName); err != nil {
+		log.Fatalf("Error when removing the database: %v\n", err)
+	}
 	os.Exit(code)
 }
 
@@ -51,6 +53,8 @@ func Test_Database(t *testing.T) {
 	is := is.New(t)
 
 	db := NewDB()
+	defer db.Close()
+
 	cleanup := createArticles(db)
 	defer cleanup()
 

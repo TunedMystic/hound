@@ -67,4 +67,12 @@ func Test_NewServer(t *testing.T) {
 	is.True(s.DB != nil)        // DB exists
 	is.True(s.Router != nil)    // Router exists
 	is.True(s.Templates != nil) // Templates exist
+
+	s.DB.Close()
+
+	// Remove the test db.
+	config := config.GetConfig()
+	if err := os.Remove(config.DatabaseName); err != nil {
+		t.Fatalf("Error when removing the database: %v\n", err)
+	}
 }
