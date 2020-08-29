@@ -13,6 +13,7 @@ build: clean  ## Build the binary
 clean:  ## Clean workspace
 	@rm -f ${APP}
 	@rm -rf tmp
+	@rm -rf coverage.txt
 
 dev:  ## Run the program in dev mode.
 	@BASE_DIR=$(shell go env GOMOD) DATABASE_NAME=hound.sqlite go run main.go
@@ -21,6 +22,6 @@ install:  ## Install project dependencies
 	@go mod download
 
 test:  ## Run tests
-	@go clean -testcache; BASE_DIR=$(shell go env GOMOD) DATABASE_NAME=hound-test.sqlite go test -v -cover ./app/...
+	@go clean -testcache; BASE_DIR=$(shell go env GOMOD) DATABASE_NAME=hound-test.sqlite go test ./app/... -v -covermode=atomic -coverprofile coverage.txt; go tool cover -func coverage.txt
 
 .PHONY: help build clean install test dev
